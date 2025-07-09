@@ -16,7 +16,19 @@ const fetchPopularMovies = async (req, res) => {
                 }
             }
         );
-        res.json(response.data.results);
+
+        //Map to return only specific fields
+        const simplifiedMovies = response.data.results.map(movie => ({
+            id: movie.id,
+            title: movie.title,
+            description: movie.overview,
+            posterPath: movie.poster_path,
+            releaseDate: movie.release_date,
+            rating: movie.vote_average
+        }));
+
+        res.json(simplifiedMovies);
+
     } catch (error) {
         console.error('Error fetching movies from TMDb:', error.message);
         res.status(500).json({ error: 'Failed to fetch movies' });
