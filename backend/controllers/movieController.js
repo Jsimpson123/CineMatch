@@ -35,4 +35,23 @@ const fetchPopularMovies = async (req, res) => {
     }
 };
 
-module.exports = { fetchPopularMovies };
+const saveLikedMovie = async (req, res) => {
+    const { movie } = req.body;
+
+    try {
+        const db = require('../firebase');
+
+        //For a test user:
+        const testUserId = 'testUser';
+        const likedMoviesRef = db.collection('users').doc(testUserId).collection('likedMovies');
+
+        await likedMoviesRef.doc(String(movie.id)).set(movie);
+
+        res.status(200).json({ message: 'Movie saved successfully.' });
+    } catch (error) {
+        console.error('Error saving liked movie:', error);
+        res.status(500).json({ error: 'Failed to save liked movie.' });
+    }
+};
+
+module.exports = { fetchPopularMovies, saveLikedMovie };

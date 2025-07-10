@@ -16,6 +16,16 @@ const PopularMovies = () => {
         fetchMovies();
     }, []);
 
+    //Correctly triggered only on click
+    const handleLike = async (movie) => {
+        try {
+            await axios.post('http://localhost:5000/api/movies/like', { movie });
+            console.log(`${movie.title} liked and saved!`);
+        } catch (error) {
+            console.error('Error saving liked movie:', error);
+        }
+    };
+
     return (
         <div>
             <h2>Popular Movies</h2>
@@ -31,6 +41,8 @@ const PopularMovies = () => {
                                 <img
                                     src={`https://image.tmdb.org/t/p/w200${movie.posterPath}`}
                                     alt={movie.title}
+                                    onClick={() => handleLike(movie)}
+                                    style={{ cursor: 'pointer' }}
                                 />
                             )}
                             <p>Release Date: {movie.releaseDate}</p>
