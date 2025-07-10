@@ -7,4 +7,23 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-module.exports = db;
+const {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    sendEmailVerification,
+    sendPasswordResetEmail
+
+} = require("firebase/auth") ;
+
+module.exports = {
+    db,
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signOut,
+    sendEmailVerification,
+    sendPasswordResetEmail,
+    admin
+};

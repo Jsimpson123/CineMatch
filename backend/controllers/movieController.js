@@ -39,7 +39,7 @@ const saveLikedMovie = async (req, res) => {
     const { movie } = req.body;
 
     try {
-        const db = require('../firebase');
+        const { db } = require('../firebase');
 
         //For a test user:
         const testUserId = 'testUser';
